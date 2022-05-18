@@ -48,17 +48,26 @@ class ThreeRooms(MiniWorldEnv):
             pos=[0, 1.35, 7],
             dir=math.pi/2,
             width=1.8,
-            tex_name='logo_mila'
+            tex_name='putneylogo'
         ))
 
         self.place_entity(MeshEnt(
             mesh_name='duckie',
-            height=0.25,
-            static=False
+            height=1,
+            static=True
         ))
+        
+        self.place_entity(MeshEnt(
+            mesh_name='tree',
+            height=1,
+            static=True
+        ))
+        
+        
+
 
         self.place_entity(Key(color='blue'))
-        self.place_entity(Ball(color='green'))
+        self.place_entity(Ball(color='yellow'))
 
         self.place_agent()
 

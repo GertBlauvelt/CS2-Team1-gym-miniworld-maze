@@ -52,8 +52,8 @@ class Sidewalk(MiniWorldEnv):
         for i in range(1, sidewalk.max_z//2):
             self.place_entity(
                 MeshEnt(
-                    mesh_name='cone',
-                    height=0.75
+                    mesh_name='duckie',
+                    height=5
                 ),
                 pos = np.array([1, 0, 2*i])
             )
