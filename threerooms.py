@@ -39,35 +39,51 @@ class ThreeRooms(MiniWorldEnv):
         self.connect_rooms(room0, room1, min_x=-5.25, max_x=-2.75)
         self.connect_rooms(room0, room2, min_x=2.75, max_x=5.25)
 
-        self.box = self.place_entity(Box(color='red'))
+        #self.box = self.place_entity(Box(color='red'))
         #self.yellow_box = self.place_entity(Box(color='yellow', size=[0.8, 1.2, 0.5]))
-        self.place_entity(Box(color='green', size=0.6))
+        #self.place_entity(Box(color='green', size=0.6))
 
-        # Mila logo image on the wall
-        self.entities.append(ImageFrame(
-            pos=[0, 1.35, 7],
-            dir=math.pi/2,
-            width=1.8,
-            tex_name='putneylogo'
-        ))
-
-        self.place_entity(MeshEnt(
+        
+        # What we need:
+        
+        #duck
+         self.place_entity(MeshEnt(
             mesh_name='duckie',
             height=1,
             static=True
         ))
         
-        self.place_entity(MeshEnt(
+        #green square
+        self.place_entity(Box(color='green'))
+        
+        #blue sphere
+        self.place_entity(Ball(color='blue'))
+        
+        #song attached to an object
+        
+        #dinosaur
+        self.place_entity(MeshEnt(mesh_name='office_chair', height=2, static=True'))
+        
+        #random object of our choosing
+         self.place_entity(MeshEnt(
             mesh_name='tree',
             height=1,
             static=True
         ))
         
+        #a hole or window
         
-
-
-        self.place_entity(Key(color='blue'))
-        self.place_entity(Ball(color='yellow'))
+        #billboard with an outside image
+         # Putney logo image on the wall
+         self.entities.append(ImageFrame(
+            pos=[0, 1.35, 7],
+            dir=math.pi/2,
+            width=1.8,
+            tex_name='putneylogo'
+        ))
+        
+        #purple cube *or* pyramid
+       
 
         self.place_agent()
 
