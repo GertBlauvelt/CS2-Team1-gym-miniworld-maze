@@ -83,7 +83,7 @@ class ThreeRooms(MiniWorldEnv):
         ))
         
         #purple cube *or* pyramid
-       
+        self.place_entity(Box(color='pruple'))
 
         self.place_agent()
 
