@@ -34,24 +34,65 @@ class ThreeRooms(MiniWorldEnv):
             min_x=1 , max_x=7,
             min_z=-7, max_z=-0.5
         )
+        
+        self.room3 = self.add_rect_room(
+            min_x=-2 , max_x=2,
+            min_z=8, max_z=12,
+            floor_tex='slime'
+        )
 
         # Connect the rooms with portals/openings
         self.connect_rooms(room0, room1, min_x=-5.25, max_x=-2.75)
         self.connect_rooms(room0, room2, min_x=2.75, max_x=5.25)
-
-        #self.box = self.place_entity(Box(color='red'))
-        #self.yellow_box = self.place_entity(Box(color='yellow', size=[0.8, 1.2, 0.5]))
-        #self.place_entity(Box(color='green', size=0.6))
-
+        self.connect_rooms(room0, self.room3, min_x=-2, max_x=2)
+           
+        # Start low duckies
+        for i in range(7, 10):
+            self.place_entity(
+                MeshEnt(
+                    mesh_name='duckie',
+                    height=0.7
+                ),
+                pos = np.array([0.5*i, 0.4, 5])
+            )
         
-        # What we need:
-        
-        #duck
-         self.place_entity(MeshEnt(
-            mesh_name='duckie',
-            height=1,
-            static=True
-        ))
+        # Middle line of duckies in biggest room
+        for i in range(1, 10):
+            self.place_entity(
+                MeshEnt(
+                    mesh_name='duckie',
+                    height=0.6
+                ),
+                pos = np.array([1, 0, 0.5*i])
+            )
+            
+        for i in range(1, 10):
+            self.place_entity(
+                MeshEnt(
+                    mesh_name='duckie',
+                    height=0.6
+                ),
+                pos = np.array([1, 0.6, 0.5*i])
+            )
+            
+        #Second line of duckies
+        for i in range(5, 15):
+            self.place_entity(
+                MeshEnt(
+                    mesh_name='duckie',
+                    height=0.6
+                ),
+                pos = np.array([3, 0, 0.5*i])
+            )
+            
+        for i in range(5, 15):
+            self.place_entity(
+                MeshEnt(
+                    mesh_name='duckie',
+                    height=0.6
+                ),
+                pos = np.array([3, 0.6, 0.5*i])
+            )
         
         #green square
         self.place_entity(Box(color='green'))
@@ -62,32 +103,37 @@ class ThreeRooms(MiniWorldEnv):
         #song attached to an object
         
         #dinosaur
-        self.place_entity(MeshEnt(mesh_name='office_chair', height=2, static=True'))
+        self.place_entity(MeshEnt(mesh_name='office_chair', height=2, static=True))
         
         #random object of our choosing
-         self.place_entity(MeshEnt(
-            mesh_name='tree',
-            height=1,
-            static=True
-        ))
-        
-        #a hole or window
+        self.place_entity(MeshEnt(mesh_name='tree', height=1, static=True))
         
         #billboard with an outside image
          # Putney logo image on the wall
-         self.entities.append(ImageFrame(
-            pos=[0, 1.35, 7],
+        self.entities.append(ImageFrame(
+            pos=[4, 1.35, 7],
             dir=math.pi/2,
             width=1.8,
             tex_name='putneylogo'
         ))
         
         #purple cube *or* pyramid
-        self.place_entity(Box(color='pruple'))
+        self.place_entity(Box(color='purple'))
 
-        self.place_agent()
+
+        self.place_agent(
+            room=0,
+            min_x=4,
+            max_x=4,
+            min_z=6,
+            max_z=6.5
+        )
 
     def step(self, action):
         obs, reward, done, info = super().step(action)
+        
+        if self.room3.point_inside(self.agent.pos):
+            reward = 0
+            done = True
 
         return obs, reward, done, info
